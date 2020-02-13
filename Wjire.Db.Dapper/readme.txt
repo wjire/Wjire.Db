@@ -1,4 +1,4 @@
-﻿1.currently only supported : sqlserver,mysql
+﻿1.currently only support : sqlserver,mysql
 
 2.the configuration priority:
     appsettings.Development.json > appsettings.json
@@ -167,3 +167,9 @@
             }
             ......
         }
+
+
+4.here is a CodeBuilder for quick create example codes
+    https://github.com/wjire/Wjire.Lib/tree/master/Wjire.CodeBuilder
+
+
