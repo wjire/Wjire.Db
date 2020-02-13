@@ -154,7 +154,7 @@
 
 
 
-        Add(T t) //the method not yet support mysql
+        Add(T t)
         {
             ......
             foreach (PropertyInfo property in type.GetProperties())
