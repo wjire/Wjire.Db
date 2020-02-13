@@ -6,7 +6,7 @@ namespace Wjire.Db.Dapper
 {
     public partial class BaseRepository<TEntity>
     {
-        
+
         public void Add(TEntity entity)
         {
             string sql = SqlCreator.GetInsertSql(entity);
@@ -24,6 +24,24 @@ namespace Wjire.Db.Dapper
             if (addResult != entities.Count)
             {
                 throw new Exception("insert into database throw a exception");
+            }
+        }
+
+
+        /// <summary>
+        /// 存在更新,不存在插入
+        /// </summary>
+        /// <param name="entity"></param>
+        /// <param name="whereSql">判断是否存在的where语句</param>
+        /// <param name="param"></param>
+        /// <returns>受影响的行数</returns>
+        protected void AddOrUpdate(TEntity entity, string whereSql, object param = null)
+        {
+            var sql = SqlCreator.GetAddOrUpdateSql(entity, whereSql);
+            var result = Execute(sql, param);
+            if (result != 1)
+            {
+                throw new Exception("AddOrUpdate database throw a exception");
             }
         }
 

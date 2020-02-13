@@ -10,6 +10,7 @@ namespace Wjire.Db.Dapper.SqlCreator
     {
 
         protected readonly ConcurrentDictionary<Type, string> AddSqlContainer = new ConcurrentDictionary<Type, string>();
+        protected readonly ConcurrentDictionary<Type, string> UpdateSqlContainer = new ConcurrentDictionary<Type, string>();
 
         /// <summary>
         /// 获取数据库插入数据时的sql语句
@@ -38,6 +39,44 @@ namespace Wjire.Db.Dapper.SqlCreator
                 sqlBuilder.Append($"({fieldString}) VALUES ({paramString});");
                 return sqlBuilder.ToString();
             });
+            return sql;
+        }
+
+
+        /// <summary>
+        /// 获取数据库更新数据时的sql语句
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <returns></returns>
+        internal virtual string GetUpdateSql(object obj)
+        {
+            Type type = obj.GetType();
+            string result = UpdateSqlContainer.GetOrAdd(type, t =>
+            {
+                StringBuilder sqlBuilder = new StringBuilder();
+                sqlBuilder.Append($" UPDATE {type.Name} SET ");
+
+                foreach (PropertyInfo property in type.GetProperties())
+                {
+                    //忽略自增字段
+                    KeyAttribute att = property.GetCustomAttribute<KeyAttribute>();
+                    if (att != null)
+                    {
+                        continue;
+                    }
+                    sqlBuilder.Append($"{property.Name}=@{property.Name},");
+                }
+                return sqlBuilder.Remove(sqlBuilder.Length - 1, 1).ToString();
+            });
+            return result;
+        }
+
+        internal virtual string GetAddOrUpdateSql(object obj, string whereSql)
+        {
+            var tableName = obj.GetType().Name;
+            string addSql = GetInsertSql(obj);
+            var updateSql = GetUpdateSql(obj);
+            string sql = $" IF EXISTS (SELECT TOP 1 1 FROM {tableName} {whereSql}) {updateSql} {whereSql} ELSE {addSql};";
             return sql;
         }
 
