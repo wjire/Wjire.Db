@@ -2,6 +2,9 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
+    <Authors>Wjire</Authors>
+    <Description>利用dapper封装的仓储层. the repository layer , use dapper for encapsulated</Description>
+    <PackageProjectUrl>https://github.com/wjire/Wjire.Db.Dapper/tree/master/Wjire.Db.Dapper</PackageProjectUrl>
   </PropertyGroup>
 
   <ItemGroup>
