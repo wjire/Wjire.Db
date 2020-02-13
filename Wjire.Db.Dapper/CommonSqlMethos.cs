@@ -6,26 +6,24 @@ namespace Wjire.Db.Dapper
 {
     public partial class BaseRepository<TEntity>
     {
-
-        /// <summary>
-        /// 新增 insert into table (...) values(...)
-        /// </summary>
-        public virtual string Add(TEntity entity)
+        
+        public void Add(TEntity entity)
         {
-            try
+            string sql = SqlCreator.GetInsertSql(entity);
+            int addResult = Execute(sql, entity);
+            if (addResult != 1)
             {
-                string sql = SqlCreator.GetInsertSql(entity);
-                int addResult = Execute(sql, entity);
-                if (addResult != 1)
-                {
-                    throw new Exception("insert into database throw a exception");
-                }
-
-                return "success";
+                throw new Exception("insert into database throw a exception");
             }
-            catch (Exception e)
+        }
+
+        public void Add(List<TEntity> entities)
+        {
+            string sql = SqlCreator.GetInsertSql(entities[0]);
+            int addResult = Execute(sql, entities);
+            if (addResult != entities.Count)
             {
-                return e.ToString();
+                throw new Exception("insert into database throw a exception");
             }
         }
 
