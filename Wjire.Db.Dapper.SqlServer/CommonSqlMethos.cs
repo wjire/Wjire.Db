@@ -62,13 +62,13 @@ namespace Wjire.Db.Dapper.SqlServer
         /// <typeparam name="T"></typeparam>
         /// <param name="dataSql">查询数据的语句,确保已经排序</param>
         /// <param name="countSql">查询总记录数的语句</param>
-        /// <param name="pageSize">每页大小</param>
         /// <param name="pageIndex">第几页</param>
+        /// <param name="pageSize">每页大小</param>
         /// <param name="pageCount">总页数</param>
         /// <param name="dataCount">总记录数</param>
         /// <param name="param">参数</param>
         /// <returns></returns>
-        protected IEnumerable<T> QueryPage<T>(string dataSql, string countSql, int pageSize, int pageIndex, out int pageCount, out int dataCount, object param = null)
+        protected IEnumerable<T> QueryPage<T>(string dataSql, string countSql, int pageIndex, int pageSize, out int pageCount, out int dataCount, object param = null)
         {
             dataCount = ExecuteScalar<int>(countSql, param);
             if (dataCount == 0)

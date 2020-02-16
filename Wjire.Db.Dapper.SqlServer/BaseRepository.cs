@@ -17,7 +17,6 @@ namespace Wjire.Db.Dapper.SqlServer
         private readonly IDbConnection _connection;
         private readonly IDbTransaction _transaction;
 
-
         /// <summary>
         /// 构造函数
         /// </summary>
