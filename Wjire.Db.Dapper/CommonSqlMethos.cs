@@ -37,8 +37,8 @@ namespace Wjire.Db.Dapper
         /// <returns>受影响的行数</returns>
         protected void AddOrUpdate(TEntity entity, string whereSql, object param = null)
         {
-            var sql = SqlCreator.GetAddOrUpdateSql(entity, whereSql);
-            var result = Execute(sql, param);
+            string sql = SqlCreator.GetAddOrUpdateSql(entity, whereSql);
+            int result = Execute(sql, param);
             if (result != 1)
             {
                 throw new Exception("AddOrUpdate database throw a exception");

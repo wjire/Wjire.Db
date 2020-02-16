@@ -14,8 +14,21 @@ namespace Wjire.Db.Dapper.SqlServer
     {
 
         protected string TableName = typeof(TEntity).Name;
-        private readonly IDbConnection _connection;
-        private readonly IDbTransaction _transaction;
+        private IDbConnection _connection;
+        private readonly Func<IDbConnection> _connectionFactory;
+
+        private IDbConnection Connection =>
+            _unit == null
+                ? (_connection ?? (_connection = _connectionFactory()))
+                : (_unit.Connection ?? (_unit.Connection = _unit.ConnectionFactory()));
+
+
+        private IDbTransaction Transaction =>
+            (_unit?.TransactionFactory == null)
+            ? null
+            : (_unit.Transaction = _unit.Transaction ?? _unit.TransactionFactory(Connection));
+
+        private readonly IUnitOfWork _unit;
 
         /// <summary>
         /// 构造函数
@@ -23,10 +36,7 @@ namespace Wjire.Db.Dapper.SqlServer
         /// <param name="name">链接名称</param>
         protected BaseRepository(string name)
         {
-            if (_connection == null)
-            {
-                _connection = ConnectionFactory.GetConnection(name);
-            }
+            _connectionFactory = ConnectionFactoryProvider.GetConnectionFactory(name);
         }
 
         /// <summary>
@@ -35,99 +45,98 @@ namespace Wjire.Db.Dapper.SqlServer
         /// <param name="unit">工作单元</param>
         protected BaseRepository(IUnitOfWork unit)
         {
-            _connection = unit.Connection;
-            _transaction = unit.Transaction;
+            _unit = unit;
         }
 
         protected int Execute(string sql, object param = null, int? commandTimeout = null, CommandType? commandType = null)
         {
-            return _connection.Execute(sql, param, _transaction, commandTimeout, commandType);
+            return Connection.Execute(sql, param, Transaction, commandTimeout, commandType);
         }
 
         protected Task<int> ExecuteAsync(string sql, object param = null, int? commandTimeout = null, CommandType? commandType = null)
         {
-            return _connection.ExecuteAsync(sql, param, _transaction, commandTimeout, commandType);
+            return Connection.ExecuteAsync(sql, param, Transaction, commandTimeout, commandType);
         }
 
         protected T ExecuteScalar<T>(string sql, object param = null, int? commandTimeout = null, CommandType? commandType = null)
         {
-            return _connection.ExecuteScalar<T>(sql, param, _transaction, commandTimeout, commandType);
+            return Connection.ExecuteScalar<T>(sql, param, Transaction, commandTimeout, commandType);
         }
 
         protected Task<T> ExecuteScalarAsync<T>(string sql, object param = null, int? commandTimeout = null, CommandType? commandType = null)
         {
-            return _connection.ExecuteScalarAsync<T>(sql, param, _transaction, commandTimeout, commandType);
+            return Connection.ExecuteScalarAsync<T>(sql, param, Transaction, commandTimeout, commandType);
         }
 
         protected IDataReader ExecuteReader(string sql, object param = null, int? commandTimeout = null, CommandType? commandType = null)
         {
-            return _connection.ExecuteReader(sql, param, _transaction, commandTimeout, commandType);
+            return Connection.ExecuteReader(sql, param, Transaction, commandTimeout, commandType);
         }
 
         protected Task<IDataReader> ExecuteReaderAsync(string sql, object param = null, int? commandTimeout = null, CommandType? commandType = null)
         {
-            return _connection.ExecuteReaderAsync(sql, param, _transaction, commandTimeout, commandType);
+            return Connection.ExecuteReaderAsync(sql, param, Transaction, commandTimeout, commandType);
         }
 
         protected IEnumerable<T> Query<T>(string sql, object param = null, bool buffered = true, int? commandTimeout = null, CommandType? commandType = null)
         {
-            return _connection.Query<T>(sql, param, _transaction, buffered, commandTimeout, commandType);
+            return Connection.Query<T>(sql, param, Transaction, buffered, commandTimeout, commandType);
         }
 
         protected Task<IEnumerable<T>> QueryAsync<T>(string sql, object param = null, int? commandTimeout = null, CommandType? commandType = null)
         {
-            return _connection.QueryAsync<T>(sql, param, _transaction, commandTimeout, commandType);
+            return Connection.QueryAsync<T>(sql, param, Transaction, commandTimeout, commandType);
         }
 
         protected T QueryFirst<T>(string sql, object param = null, int? commandTimeout = null, CommandType? commandType = null)
         {
-            return _connection.QueryFirst<T>(sql, param, _transaction, commandTimeout, commandType);
+            return Connection.QueryFirst<T>(sql, param, Transaction, commandTimeout, commandType);
         }
 
         protected Task<T> QueryFirstAsync<T>(string sql, object param = null, int? commandTimeout = null, CommandType? commandType = null)
         {
-            return _connection.QueryFirstAsync<T>(sql, param, _transaction, commandTimeout, commandType);
+            return Connection.QueryFirstAsync<T>(sql, param, Transaction, commandTimeout, commandType);
         }
 
         protected T QueryFirstOrDefault<T>(string sql, object param = null, int? commandTimeout = null, CommandType? commandType = null)
         {
-            return _connection.QueryFirstOrDefault<T>(sql, param, _transaction, commandTimeout, commandType);
+            return Connection.QueryFirstOrDefault<T>(sql, param, Transaction, commandTimeout, commandType);
         }
 
         protected Task<T> QueryFirstOrDefaultAsync<T>(string sql, object param = null, int? commandTimeout = null, CommandType? commandType = null)
         {
-            return _connection.QueryFirstOrDefaultAsync<T>(sql, param, _transaction, commandTimeout, commandType);
+            return Connection.QueryFirstOrDefaultAsync<T>(sql, param, Transaction, commandTimeout, commandType);
         }
 
 
         protected T QuerySingle<T>(string sql, object param = null, int? commandTimeout = null, CommandType? commandType = null)
         {
-            return _connection.QuerySingle<T>(sql, param, _transaction, commandTimeout, commandType);
+            return Connection.QuerySingle<T>(sql, param, Transaction, commandTimeout, commandType);
         }
 
         protected Task<T> QuerySingleAsync<T>(string sql, object param = null, int? commandTimeout = null, CommandType? commandType = null)
         {
-            return _connection.QuerySingleAsync<T>(sql, param, _transaction, commandTimeout, commandType);
+            return Connection.QuerySingleAsync<T>(sql, param, Transaction, commandTimeout, commandType);
         }
 
         protected T QuerySingleOrDefault<T>(string sql, object param = null, int? commandTimeout = null, CommandType? commandType = null)
         {
-            return _connection.QuerySingleOrDefault<T>(sql, param, _transaction, commandTimeout, commandType);
+            return Connection.QuerySingleOrDefault<T>(sql, param, Transaction, commandTimeout, commandType);
         }
 
         protected Task<T> QuerySingleOrDefaultAsync<T>(string sql, object param = null, int? commandTimeout = null, CommandType? commandType = null)
         {
-            return _connection.QuerySingleOrDefaultAsync<T>(sql, param, _transaction, commandTimeout, commandType);
+            return Connection.QuerySingleOrDefaultAsync<T>(sql, param, Transaction, commandTimeout, commandType);
         }
 
         protected SqlMapper.GridReader QueryMultiple(string sql, object param = null, int? commandTimeout = null, CommandType? commandType = null)
         {
-            return _connection.QueryMultiple(sql, param, _transaction, commandTimeout, commandType);
+            return Connection.QueryMultiple(sql, param, Transaction, commandTimeout, commandType);
         }
 
         protected Task<SqlMapper.GridReader> QueryMultipleAsync(string sql, object param = null, int? commandTimeout = null, CommandType? commandType = null)
         {
-            return _connection.QueryMultipleAsync(sql, param, _transaction, commandTimeout, commandType);
+            return Connection.QueryMultipleAsync(sql, param, Transaction, commandTimeout, commandType);
         }
 
 
@@ -136,7 +145,7 @@ namespace Wjire.Db.Dapper.SqlServer
         /// </summary>
         public void Dispose()
         {
-            _connection?.Dispose();
+            Connection?.Dispose();
         }
     }
 }

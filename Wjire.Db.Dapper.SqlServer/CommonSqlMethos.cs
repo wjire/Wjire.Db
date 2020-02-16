@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Concurrent;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Reflection;
-using System.Text;
 
 namespace Wjire.Db.Dapper.SqlServer
 {
@@ -47,7 +43,7 @@ namespace Wjire.Db.Dapper.SqlServer
                 updateSql = SqlHelper.GetUpdateSql(entity);
             }
             string sql = $" IF EXISTS (SELECT TOP 1 1 FROM {TableName} {whereSql}) {updateSql} {whereSql} ELSE {addSql};";
-            var result = Execute(sql, param);
+            int result = Execute(sql, param);
             if (result != 1)
             {
                 throw new Exception("AddOrUpdate a entity throw an exception");
@@ -79,7 +75,7 @@ namespace Wjire.Db.Dapper.SqlServer
             pageCount = dataCount % pageSize == 0
                 ? dataCount / pageSize
                 : dataCount / pageSize + 1;
-            var sql = dataSql + $" OFFSET {(pageIndex - 1) * pageSize} ROWS FETCH NEXT {pageSize} ROWS ONLY ";
+            string sql = dataSql + $" OFFSET {(pageIndex - 1) * pageSize} ROWS FETCH NEXT {pageSize} ROWS ONLY ";
             return Query<T>(sql, param);
         }
 

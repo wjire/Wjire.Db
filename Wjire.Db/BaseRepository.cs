@@ -16,7 +16,7 @@ namespace Wjire.Db
         /// IDbConnection
         /// </summary>
         private readonly IDbConnection _connection;
-        
+
 
         /// <summary>
         /// IDbCommand

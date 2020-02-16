@@ -11,7 +11,7 @@ namespace Wjire.Db.Dapper.SqlCreator
         {
 
         }
-        
+
         internal override string GetQueryPageSql(StringBuilder dataSql, int pageSize, int pageIndex)
         {
             throw new NotImplementedException();

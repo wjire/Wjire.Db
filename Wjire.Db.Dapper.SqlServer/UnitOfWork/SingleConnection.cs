@@ -1,4 +1,5 @@
-﻿using System.Data;
+﻿using System;
+using System.Data;
 
 namespace Wjire.Db.Dapper.SqlServer
 {
@@ -11,13 +12,16 @@ namespace Wjire.Db.Dapper.SqlServer
         /// <summary>
         /// IDbConnection
         /// </summary>
-        public IDbConnection Connection { get; }
-        
+        public IDbConnection Connection { get; set; }
+
 
         /// <summary>
         /// IDbTransaction
         /// </summary>
-        public IDbTransaction Transaction { get; }
+        public IDbTransaction Transaction { get; set; }
+
+        public Func<IDbConnection> ConnectionFactory { get; }
+        public Func<IDbConnection, IDbTransaction> TransactionFactory { get; }
 
 
         /// <summary>
@@ -26,9 +30,8 @@ namespace Wjire.Db.Dapper.SqlServer
         /// <param name="name">链接名称</param>
         public SingleConnection(string name)
         {
-            Connection = ConnectionFactory.GetConnection(name);
+            ConnectionFactory = ConnectionFactoryProvider.GetConnectionFactory(name);
         }
-
 
 
         /// <summary>

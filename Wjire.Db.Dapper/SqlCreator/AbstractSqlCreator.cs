@@ -73,9 +73,9 @@ namespace Wjire.Db.Dapper.SqlCreator
 
         internal virtual string GetAddOrUpdateSql(object obj, string whereSql)
         {
-            var tableName = obj.GetType().Name;
+            string tableName = obj.GetType().Name;
             string addSql = GetInsertSql(obj);
-            var updateSql = GetUpdateSql(obj);
+            string updateSql = GetUpdateSql(obj);
             string sql = $" IF EXISTS (SELECT TOP 1 1 FROM {tableName} {whereSql}) {updateSql} {whereSql} ELSE {addSql};";
             return sql;
         }
