@@ -15,6 +15,7 @@ namespace Wjire.Db.Dapper.SqlServer
 
         protected string TableName = typeof(TEntity).Name;
         private IDbConnection _connection;
+        private readonly IUnitOfWork _unit;
         private readonly Func<IDbConnection> _connectionFactory;
 
         private IDbConnection Connection =>
@@ -28,7 +29,6 @@ namespace Wjire.Db.Dapper.SqlServer
             ? null
             : (_unit.Transaction = _unit.Transaction ?? _unit.TransactionFactory(Connection));
 
-        private readonly IUnitOfWork _unit;
 
         /// <summary>
         /// 构造函数
