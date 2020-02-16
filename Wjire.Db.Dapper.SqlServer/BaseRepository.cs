@@ -1,9 +1,10 @@
-﻿
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Threading.Tasks;
 using Dapper;
+using Wjire.Db.Dapper.SqlServer.Connection;
+using Wjire.Db.Dapper.SqlServer.UnitOfWork;
 
 namespace Wjire.Db.Dapper.SqlServer
 {
@@ -157,7 +158,7 @@ namespace Wjire.Db.Dapper.SqlServer
         {
             return Connection.QuerySingle<T>(sql, param, Transaction, commandTimeout, commandType);
         }
-        
+
         protected Task<TEntity> QuerySingleAsync(string sql, object param = null, int? commandTimeout = null, CommandType? commandType = null)
         {
             return Connection.QuerySingleAsync<TEntity>(sql, param, Transaction, commandTimeout, commandType);
@@ -178,7 +179,7 @@ namespace Wjire.Db.Dapper.SqlServer
         {
             return Connection.QuerySingleOrDefault<T>(sql, param, Transaction, commandTimeout, commandType);
         }
-        
+
         protected Task<TEntity> QuerySingleOrDefaultAsync(string sql, object param = null, int? commandTimeout = null, CommandType? commandType = null)
         {
             return Connection.QuerySingleOrDefaultAsync<TEntity>(sql, param, Transaction, commandTimeout, commandType);

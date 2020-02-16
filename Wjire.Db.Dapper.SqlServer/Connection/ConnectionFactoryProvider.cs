@@ -2,7 +2,7 @@
 using System.Data;
 using System.Data.SqlClient;
 
-namespace Wjire.Db.Dapper.SqlServer
+namespace Wjire.Db.Dapper.SqlServer.Connection
 {
     public class ConnectionFactoryProvider
     {
