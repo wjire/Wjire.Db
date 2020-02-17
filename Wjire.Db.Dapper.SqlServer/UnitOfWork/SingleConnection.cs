@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Data;
-using Wjire.Db.Dapper.SqlServer.Connection;
 
-namespace Wjire.Db.Dapper.SqlServer.UnitOfWork
+namespace Wjire.Db.Dapper.SqlServer
 {
     /// <summary>
     /// 单连接读取数据

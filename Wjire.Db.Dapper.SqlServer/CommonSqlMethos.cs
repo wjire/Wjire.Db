@@ -28,6 +28,19 @@ namespace Wjire.Db.Dapper.SqlServer
 
 
         /// <summary>
+        /// 添加单条记录,并返回新增记录的自增键的值.
+        /// </summary>
+        /// <param name="entity"></param>
+        /// <returns>新增数据的主键</returns>
+        public virtual long AddAndReturnIdentity(TEntity entity)
+        {
+            string sql = SqlHelper.GetInsertSql(entity);
+            sql += "SELECT CAST(SCOPE_IDENTITY() as bigint);";
+            return ExecuteScalar<long>(sql, entity);
+        }
+
+
+        /// <summary>
         /// 存在更新,不存在插入
         /// </summary>
         /// <param name="entity"></param>
@@ -49,7 +62,6 @@ namespace Wjire.Db.Dapper.SqlServer
                 throw new Exception("AddOrUpdate a entity throw an exception");
             }
         }
-
 
 
         /// <summary>

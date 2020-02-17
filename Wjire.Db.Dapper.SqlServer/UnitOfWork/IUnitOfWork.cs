@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Data;
 
-namespace Wjire.Db.Dapper.SqlServer.UnitOfWork
+namespace Wjire.Db.Dapper.SqlServer
 {
     /// <summary>
     /// 工作单元接口
