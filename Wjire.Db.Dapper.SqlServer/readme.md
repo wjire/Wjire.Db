@@ -1,6 +1,11 @@
 ﻿
 1.the configuration priority:
-    appsettings.Development.json > appsettings.json
+    appsettings.Development.json > appsettings.json  
+
+      "connectionStrings": {
+        "NCovRead": "Data Source=localhost;Initial Catalog=NCov;User ID=sa;Password=1",
+        "NCovWrite": "Data Source=localhost;Initial Catalog=NCov;User ID=sa;Password=1"
+      }
 
 2.examples:
 
@@ -72,16 +77,8 @@
                 return Query<RouteInfo>("select * from routeinfo").ToList();
             }
         }
-    
-        
-    appsettings.json:
-
-      "connectionStrings": {
-        "NCovRead": "Data Source=localhost;Initial Catalog=NCov;User ID=sa;Password=1",
-        "NCovWrite": "Data Source=localhost;Initial Catalog=NCov;User ID=sa;Password=1"
-      }
-
-
+          
+                   
     TestLogic.cs:
 
         public class TestLogic
