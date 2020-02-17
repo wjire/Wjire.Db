@@ -27,22 +27,22 @@
 
         public partial class NCoVDbFactory
         {
-            public static RouteInfoRepository CreateIRouteInfoRepositoryRead()
+            public static RouteInfoRepository CreateRouteInfoRepositoryRead()
             {
                 return new RouteInfoRepository(NCoVRead);
             }
 
-            public static RouteInfoRepository CreateIRouteInfoRepositoryRead(IUnitOfWork unit)
+            public static RouteInfoRepository CreateRouteInfoRepositoryRead(IUnitOfWork unit)
             {
                 return new RouteInfoRepository(unit);
             }
 
-            public static RouteInfoRepository CreateIRouteInfoRepositoryWrite()
+            public static RouteInfoRepository CreateRouteInfoRepositoryWrite()
             {
                 return new RouteInfoRepository(NCoVWrite);
             }
 
-            public static RouteInfoRepository CreateIRouteInfoRepositoryWrite(IUnitOfWork unit)
+            public static RouteInfoRepository CreateRouteInfoRepositoryWrite(IUnitOfWork unit)
             {
                 return new RouteInfoRepository(unit);
             }
@@ -88,7 +88,7 @@
         {
             public RouteInfo Get(int id)
             {
-                using (var db = NCoVDbFactory.CreateIRouteInfoRepositoryRead())
+                using (var db = NCoVDbFactory.CreateRouteInfoRepositoryRead())
                 {
                     ......
                 }
@@ -96,7 +96,7 @@
 
             public void Add(RouteInfo info)
             {
-                using (var db = NCoVDbFactory.CreateIRouteInfoRepositoryWrite())
+                using (var db = NCoVDbFactory.CreateRouteInfoRepositoryWrite())
                 {
                     ......
                 }
@@ -106,8 +106,8 @@
             {
                 using (var unit = NCoVDbFactory.CreateSingle())
                 {
-                    var infoRepo = NCoVDbFactory.CreateIRouteInfoRepositoryRead(unit);
-                    var addressRepo = NCoVDbFactory.CreateIAddressRepositoryRead(unit);
+                    var infoRepo = NCoVDbFactory.CreateRouteInfoRepositoryRead(unit);
+                    var addressRepo = NCoVDbFactory.CreateAddressRepositoryRead(unit);
                     ......
                 }
             }
@@ -118,8 +118,8 @@
                 {
                     try
                     {
-                        var infoRepo = NCoVDbFactory.CreateIRouteInfoRepositoryWrite(unit);
-                        var addressRepo = NCoVDbFactory.CreateIAddressRepositoryWrite(unit);
+                        var infoRepo = NCoVDbFactory.CreateRouteInfoRepositoryWrite(unit);
+                        var addressRepo = NCoVDbFactory.CreateAddressRepositoryWrite(unit);
                         ......
                         unit.Commit();
                     }
