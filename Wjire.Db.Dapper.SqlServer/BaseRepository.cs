@@ -4,7 +4,7 @@ using System.Data;
 using System.Threading.Tasks;
 using Dapper;
 
-namespace Wjire.Db.Dapper.SqlServer
+namespace Wjire.Db.Dapper
 {
     /// <summary>
     /// 底层基础处理仓储

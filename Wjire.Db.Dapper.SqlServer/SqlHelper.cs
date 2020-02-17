@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Reflection;
 using System.Text;
 
-namespace Wjire.Db.Dapper.SqlServer
+namespace Wjire.Db.Dapper
 {
     internal class SqlHelper
     {

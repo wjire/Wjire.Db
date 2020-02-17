@@ -2,7 +2,7 @@
 using System.IO;
 using Microsoft.Extensions.Configuration;
 
-namespace Wjire.Db.Dapper.SqlServer
+namespace Wjire.Db.Dapper
 {
 
     /// <summary>

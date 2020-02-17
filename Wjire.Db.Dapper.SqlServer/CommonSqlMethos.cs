@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Wjire.Db.Dapper.SqlServer
+namespace Wjire.Db.Dapper
 {
     public partial class BaseRepository<TEntity>
     {
