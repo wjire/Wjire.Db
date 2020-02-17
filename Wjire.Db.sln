@@ -5,9 +5,7 @@ VisualStudioVersion = 16.0.29609.76
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Wjire.Db", "Wjire.Db\Wjire.Db.csproj", "{B450F31C-54BD-4B35-B292-E8832FC9497D}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Wjire.Db.Dapper", "Wjire.Db.Dapper\Wjire.Db.Dapper.csproj", "{A1E9818D-0146-47D5-8972-17BAF4341B7A}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wjire.Db.Dapper.SqlServer", "Wjire.Db.Dapper.SqlServer\Wjire.Db.Dapper.SqlServer.csproj", "{F3A31AB7-CF89-40BE-AEB1-87C7D257C71F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Wjire.Db.Dapper.SqlServer", "Wjire.Db.Dapper.SqlServer\Wjire.Db.Dapper.SqlServer.csproj", "{F3A31AB7-CF89-40BE-AEB1-87C7D257C71F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -19,10 +17,6 @@ Global
 		{B450F31C-54BD-4B35-B292-E8832FC9497D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B450F31C-54BD-4B35-B292-E8832FC9497D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B450F31C-54BD-4B35-B292-E8832FC9497D}.Release|Any CPU.Build.0 = Release|Any CPU
-		{A1E9818D-0146-47D5-8972-17BAF4341B7A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{A1E9818D-0146-47D5-8972-17BAF4341B7A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{A1E9818D-0146-47D5-8972-17BAF4341B7A}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{A1E9818D-0146-47D5-8972-17BAF4341B7A}.Release|Any CPU.Build.0 = Release|Any CPU
 		{F3A31AB7-CF89-40BE-AEB1-87C7D257C71F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{F3A31AB7-CF89-40BE-AEB1-87C7D257C71F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F3A31AB7-CF89-40BE-AEB1-87C7D257C71F}.Release|Any CPU.ActiveCfg = Release|Any CPU
