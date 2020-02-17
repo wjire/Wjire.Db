@@ -1,7 +1,11 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
+    <Authors>wjire</Authors>
+    <Company>wjire</Company>
+    <Description>repository layer used dapper.</Description>
+    <PackageProjectUrl>https://github.com/wjire/Wjire.Db/tree/master/Wjire.Db.Dapper.SqlServer</PackageProjectUrl>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="Dapper" Version="2.0.30" />
