@@ -64,6 +64,25 @@ namespace Wjire.Db.Dapper
         }
 
 
+
+        /// <summary>
+        /// 分页查询
+        /// </summary>
+        /// <param name="dataSql">查询数据的语句,确保已经排序</param>
+        /// <param name="countSql">查询总记录数的语句</param>
+        /// <param name="pageIndex">第几页</param>
+        /// <param name="pageSize">每页大小</param>
+        /// <param name="pageCount">总页数</param>
+        /// <param name="dataCount">总记录数</param>
+        /// <param name="param">参数</param>
+        /// <returns></returns>
+        protected IEnumerable<TEntity> QueryPage(string dataSql, string countSql, int pageIndex, int pageSize, out int pageCount, out int dataCount, object param = null)
+        {
+            return QueryPage<TEntity>(dataSql, countSql, pageIndex, pageSize, out pageCount, out dataCount, param);
+        }
+
+
+
         /// <summary>
         /// 分页查询
         /// </summary>
