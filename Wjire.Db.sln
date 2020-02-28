@@ -5,7 +5,13 @@ VisualStudioVersion = 16.0.29609.76
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Wjire.Db", "Wjire.Db\Wjire.Db.csproj", "{B450F31C-54BD-4B35-B292-E8832FC9497D}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Wjire.Db.Dapper.SqlServer", "Wjire.Db.Dapper.SqlServer\Wjire.Db.Dapper.SqlServer.csproj", "{F3A31AB7-CF89-40BE-AEB1-87C7D257C71F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Wjire.Db.Dapper.SqlServer.WebApi", "Wjire.Db.Dapper.SqlServer.WebApi\Wjire.Db.Dapper.SqlServer.WebApi.csproj", "{7CB54289-63CE-4616-82EC-B943DDB2009D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wjire.Dapper", "Wjire.Dapper\Wjire.Dapper.csproj", "{3CB7D3CA-B77E-4814-AFD8-91C30996724B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wjire.Dapper.SqlServer", "Wjire.Dapper.SqlServer\Wjire.Dapper.SqlServer.csproj", "{D8C00874-5B88-4094-AB32-FBC08B6F3C38}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wjire.Dapper.SqlServer.CAP", "Wjire.Dapper.SqlServer.CAP\Wjire.Dapper.SqlServer.CAP.csproj", "{DDFFE5E9-72FB-4F64-A6B0-DA535C376495}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,10 +23,22 @@ Global
 		{B450F31C-54BD-4B35-B292-E8832FC9497D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B450F31C-54BD-4B35-B292-E8832FC9497D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B450F31C-54BD-4B35-B292-E8832FC9497D}.Release|Any CPU.Build.0 = Release|Any CPU
-		{F3A31AB7-CF89-40BE-AEB1-87C7D257C71F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{F3A31AB7-CF89-40BE-AEB1-87C7D257C71F}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{F3A31AB7-CF89-40BE-AEB1-87C7D257C71F}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{F3A31AB7-CF89-40BE-AEB1-87C7D257C71F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7CB54289-63CE-4616-82EC-B943DDB2009D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7CB54289-63CE-4616-82EC-B943DDB2009D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7CB54289-63CE-4616-82EC-B943DDB2009D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7CB54289-63CE-4616-82EC-B943DDB2009D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3CB7D3CA-B77E-4814-AFD8-91C30996724B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3CB7D3CA-B77E-4814-AFD8-91C30996724B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3CB7D3CA-B77E-4814-AFD8-91C30996724B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3CB7D3CA-B77E-4814-AFD8-91C30996724B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D8C00874-5B88-4094-AB32-FBC08B6F3C38}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D8C00874-5B88-4094-AB32-FBC08B6F3C38}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D8C00874-5B88-4094-AB32-FBC08B6F3C38}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D8C00874-5B88-4094-AB32-FBC08B6F3C38}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DDFFE5E9-72FB-4F64-A6B0-DA535C376495}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DDFFE5E9-72FB-4F64-A6B0-DA535C376495}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DDFFE5E9-72FB-4F64-A6B0-DA535C376495}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DDFFE5E9-72FB-4F64-A6B0-DA535C376495}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

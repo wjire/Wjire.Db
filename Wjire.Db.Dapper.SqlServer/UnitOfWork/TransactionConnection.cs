@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Data;
+using Wjire.Db.Dapper.SqlServer.Connection;
 
 namespace Wjire.Db.Dapper
 {
@@ -10,20 +11,19 @@ namespace Wjire.Db.Dapper
     {
         public IDbConnection Connection { get; set; }
         public IDbTransaction Transaction { get; set; }
-
-        public Func<IDbConnection> ConnectionFactory { get; set; }
-
         public Func<IDbConnection, IDbTransaction> TransactionFactory { get; }
-
+        public IConnectionFactoryProvider ConnectionFactoryProvider { get; set; }
+        public string ConnectionStringName { get; set; }
 
         /// <summary>
         /// 构造函数
         /// </summary>
         /// <param name="name">链接名称</param>
         /// <param name="isolationLevel">事务级别</param>
-        public TransactionConnection(string name, IsolationLevel? isolationLevel = null)
+        public TransactionConnection(string name, IConnectionFactoryProvider provider, IsolationLevel? isolationLevel = null)
         {
-            ConnectionFactory = ConnectionFactoryProvider.GetConnectionFactory(name);
+            ConnectionStringName = name;
+            ConnectionFactoryProvider = provider;
             TransactionFactory = connection => isolationLevel.HasValue ? connection.BeginTransaction(isolationLevel.Value) : connection.BeginTransaction();
         }
 

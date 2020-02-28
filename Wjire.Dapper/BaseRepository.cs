@@ -3,24 +3,25 @@ using System.Collections.Generic;
 using System.Data;
 using System.Threading.Tasks;
 using Dapper;
-using Wjire.Db.Dapper.SqlServer.Connection;
+using Wjire.Dapper.Connection;
+using Wjire.Dapper.UnitOfWork;
 
-namespace Wjire.Db.Dapper
+namespace Wjire.Dapper
 {
     /// <summary>
     /// 底层基础处理仓储
     /// </summary>
-    public abstract partial class BaseRepository<TEntity> : IDisposable where TEntity : class, new()
+    public abstract class BaseRepository<TEntity> : IDisposable where TEntity : class, new()
     {
-        private readonly string _name;
         protected readonly string TableName = typeof(TEntity).Name;
+        private static readonly IConnectionFactoryProvider ConnectionFactoryProvider = ServiceCollectionExtensions.GetRequiredService<IConnectionFactoryProvider>();
+        private readonly string _connectionString;
         private readonly IUnitOfWork _unit;
-        private readonly IConnectionFactoryProvider _connectionFactoryProvider;
         private IDbConnection _connection;
         private IDbConnection Connection =>
             _unit == null
-                ? (_connection ?? (_connection = _connectionFactoryProvider.ConnectionFactory(_name)))
-                : (_unit.Connection ?? (_unit.Connection = _unit.ConnectionFactoryProvider.ConnectionFactory(_unit.ConnectionStringName)));
+                ? (_connection ?? (_connection = ConnectionFactoryProvider.ConnectionFactory(_connectionString)))
+                : (_unit.Connection ?? (_unit.Connection = ConnectionFactoryProvider.ConnectionFactory(_unit.ConnectionString)));
 
         private IDbTransaction Transaction =>
             (_unit?.TransactionFactory == null)
@@ -28,24 +29,17 @@ namespace Wjire.Db.Dapper
             : (_unit.Transaction = _unit.Transaction ?? _unit.TransactionFactory(Connection));
 
 
-        /// <summary>
-        /// 构造函数
-        /// </summary>
-        /// <param name="name">链接名称</param>
-        protected BaseRepository(string name, IConnectionFactoryProvider provider)
+        protected BaseRepository(string connectionString)
         {
-            _name = name;
-            _connectionFactoryProvider = provider;
+            _connectionString = connectionString;
         }
 
-        /// <summary>
-        /// 构造函数
-        /// </summary>
-        /// <param name="unit">工作单元</param>
+
         protected BaseRepository(IUnitOfWork unit)
         {
             _unit = unit;
         }
+
 
         protected int Execute(string sql, object param = null, int? commandTimeout = null, CommandType? commandType = null)
         {
@@ -199,13 +193,9 @@ namespace Wjire.Db.Dapper
             return Connection.QueryMultipleAsync(sql, param, Transaction, commandTimeout, commandType);
         }
 
-
-        /// <summary>
-        /// 释放资源
-        /// </summary>
         public void Dispose()
         {
-            Connection?.Dispose();
+            _connection?.Dispose();
         }
     }
 }

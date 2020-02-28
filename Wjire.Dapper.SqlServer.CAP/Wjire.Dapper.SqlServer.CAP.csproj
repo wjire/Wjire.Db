@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="DotNetCore.CAP.SqlServer" Version="3.0.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Wjire.Dapper.SqlServer\Wjire.Dapper.SqlServer.csproj" />
+    <ProjectReference Include="..\Wjire.Dapper\Wjire.Dapper.csproj" />
+  </ItemGroup>
+
+</Project>

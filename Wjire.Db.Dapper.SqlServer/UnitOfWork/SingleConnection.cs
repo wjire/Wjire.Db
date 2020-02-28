@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Data;
+using Wjire.Db.Dapper.SqlServer.Connection;
 
 namespace Wjire.Db.Dapper
 {
@@ -9,28 +10,20 @@ namespace Wjire.Db.Dapper
     public class SingleConnection : IUnitOfWork
     {
 
-        /// <summary>
-        /// IDbConnection
-        /// </summary>
         public IDbConnection Connection { get; set; }
-
-
-        /// <summary>
-        /// IDbTransaction
-        /// </summary>
         public IDbTransaction Transaction { get; set; }
-
-        public Func<IDbConnection> ConnectionFactory { get; }
         public Func<IDbConnection, IDbTransaction> TransactionFactory { get; }
-
+        public IConnectionFactoryProvider ConnectionFactoryProvider { get; set; }
+        public string ConnectionStringName { get; set; }
 
         /// <summary>
         /// 构造函数
         /// </summary>
         /// <param name="name">链接名称</param>
-        public SingleConnection(string name)
+        public SingleConnection(string name, IConnectionFactoryProvider provider)
         {
-            ConnectionFactory = ConnectionFactoryProvider.GetConnectionFactory(name);
+            ConnectionStringName = name;
+            ConnectionFactoryProvider = provider;
         }
 
 
@@ -47,6 +40,8 @@ namespace Wjire.Db.Dapper
         public void Rollback()
         {
         }
+
+
 
         /// <summary>
         /// 释放资源

@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Data;
-using Wjire.Db.Dapper.SqlServer.Connection;
 
-namespace Wjire.Db.Dapper
+namespace Wjire.Dapper.UnitOfWork
 {
     /// <summary>
     /// 工作单元接口
@@ -11,11 +10,9 @@ namespace Wjire.Db.Dapper
     {
         IDbConnection Connection { get; set; }
         IDbTransaction Transaction { get; set; }
+        string ConnectionString { get; set; }
         Func<IDbConnection, IDbTransaction> TransactionFactory { get; }
         void Commit();
         void Rollback();
-
-        IConnectionFactoryProvider ConnectionFactoryProvider { get; set; }
-        string ConnectionStringName { get; set; }
     }
 }
