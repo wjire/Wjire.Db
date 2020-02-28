@@ -10,11 +10,6 @@
     <PackageReference Include="DotNetCore.CAP.RabbitMQ" Version="3.0.2" />
     <PackageReference Include="DotNetCore.CAP.SqlServer" Version="3.0.2" />
     <PackageReference Include="Microsoft.Extensions.Hosting" Version="3.1.0" />
-    <PackageReference Include="Wjire.Log" Version="1.0.3" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\Wjire.Db.Dapper.SqlServer\Wjire.Db.Dapper.SqlServer.csproj" />
   </ItemGroup>
 
   <ItemGroup>

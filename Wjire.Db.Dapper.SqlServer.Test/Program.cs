@@ -16,7 +16,6 @@ namespace Wjire.Db.Dapper.SqlServer.Test
                 .ConfigureServices((context, services) =>
                 {
                     services.AddSingleton<Consumer>();
-                    services.AddSingleton<SqlServerConnectionFactoryProvider>();
                     services.AddCap(x =>
                     {
                         x.UseRabbitMQ(configure =>
