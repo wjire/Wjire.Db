@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Wjire.Dapper;
@@ -10,8 +11,17 @@ namespace Wjire.Db.Dapper.SqlServer.WebApi
 {
     public class Startup
     {
+        private readonly IConfiguration _configuration;
+
+        public Startup(IConfiguration configuration)
+        {
+            _configuration = configuration;
+        }
+
+
         // This method gets called by the runtime. Use this method to add services to the container.
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
+
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
@@ -21,8 +31,8 @@ namespace Wjire.Db.Dapper.SqlServer.WebApi
                 x.UseCapDbContext();
                 x.UseSqlServer(configure =>
                 {
-                    configure.Read = "Data Source=localhost;Initial Catalog=nCoV;Persist Security Info=True;User ID=sa;Password=Aa1111";
-                    configure.Write = "Data Source=localhost;Initial Catalog=nCoV;Persist Security Info=True;User ID=sa;Password=Aa1111";
+                    configure.Read = _configuration.GetSection("connectionStrings")["Read"];
+                    configure.Write = _configuration.GetSection("connectionStrings")["Write"];
                 });
             });
 
