@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Data;
 
-namespace Wjire.Dapper.UnitOfWork
+namespace Wjire.Dapper
 {
     /// <summary>
     /// 单连接读取数据

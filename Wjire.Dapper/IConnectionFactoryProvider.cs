@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Data;
 
-namespace Wjire.Dapper.Connection
+namespace Wjire.Dapper
 {
     public interface IConnectionFactoryProvider
     {

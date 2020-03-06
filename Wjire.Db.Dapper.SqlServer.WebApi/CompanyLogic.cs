@@ -1,8 +1,8 @@
 ﻿using System;
 using DotNetCore.CAP;
 using Microsoft.Extensions.Logging;
+using Wjire.Dapper;
 using Wjire.Dapper.SqlServer.CAP;
-using Wjire.Dapper.UnitOfWork;
 
 namespace Wjire.Db.Dapper.SqlServer.WebApi
 {
@@ -21,11 +21,11 @@ namespace Wjire.Db.Dapper.SqlServer.WebApi
 
         public void Add(Company company)
         {
-            using (IUnitOfWork unit = _dbContext.CreateCapTransaction(_cap, false))
+            using (IUnitOfWork unit = _dbContext.CreateCapTransaction(_cap))
             {
                 try
                 {
-                    CompanyRepository db = Factory.CreateICompanyRepositoryWrite(unit);
+                    CompanyRepository db = new CompanyRepository(unit);
                     db.Add(company);
                     _cap.Publish("test.company.add", DateTime.Now);
                     unit.Commit();
@@ -41,7 +41,7 @@ namespace Wjire.Db.Dapper.SqlServer.WebApi
 
         public string Get()
         {
-            using (CompanyRepository db = Factory.CreateICompanyRepositoryRead())
+            using (CompanyRepository db = new CompanyRepository(_dbContext.Read))
             {
                 return db.Get(1);
             }

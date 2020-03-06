@@ -5,7 +5,6 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Wjire.Dapper;
 using Wjire.Dapper.SqlServer;
-using Wjire.Dapper.SqlServer.CAP;
 
 namespace Wjire.Db.Dapper.SqlServer.WebApi
 {
@@ -28,7 +27,7 @@ namespace Wjire.Db.Dapper.SqlServer.WebApi
             services.AddSingleton<CompanyLogic>();
             services.AddDapper(x =>
             {
-                x.UseCapDbContext();
+                //x.UseCapDbContext();
                 x.UseSqlServer(configure =>
                 {
                     configure.Read = _configuration.GetSection("connectionStrings")["Read"];

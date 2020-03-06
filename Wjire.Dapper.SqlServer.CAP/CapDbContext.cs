@@ -1,6 +1,5 @@
 ﻿using DotNetCore.CAP;
 using Microsoft.Extensions.Options;
-using Wjire.Dapper.UnitOfWork;
 
 namespace Wjire.Dapper.SqlServer.CAP
 {
@@ -14,8 +13,7 @@ namespace Wjire.Dapper.SqlServer.CAP
 
         public IUnitOfWork CreateCapTransaction(ICapPublisher cap, bool autoCommit = false)
         {
-            return new CapTransaction(ConnectionOptions.Write, cap, autoCommit);
+            return new CapTransaction(Write, cap, autoCommit);
         }
-
     }
 }

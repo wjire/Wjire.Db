@@ -1,5 +1,4 @@
 ﻿using Wjire.Dapper;
-using Wjire.Dapper.UnitOfWork;
 
 namespace Wjire.Db.Dapper.SqlServer.WebApi
 {

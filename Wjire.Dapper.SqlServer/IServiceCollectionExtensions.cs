@@ -1,6 +1,5 @@
 ﻿using System;
 using Microsoft.Extensions.DependencyInjection;
-using Wjire.Dapper.Connection;
 
 namespace Wjire.Dapper.SqlServer
 {

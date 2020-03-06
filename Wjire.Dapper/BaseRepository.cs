@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using System.Data;
 using System.Threading.Tasks;
 using Dapper;
-using Wjire.Dapper.Connection;
-using Wjire.Dapper.UnitOfWork;
 
 namespace Wjire.Dapper
 {

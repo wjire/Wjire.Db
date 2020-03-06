@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Data;
 using DotNetCore.CAP;
-using Wjire.Dapper.UnitOfWork;
 
 namespace Wjire.Dapper.SqlServer.CAP
 {
