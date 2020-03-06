@@ -32,7 +32,6 @@ namespace Wjire.Dapper
 
         public void Dispose()
         {
-            Transaction?.Dispose();
             Connection?.Dispose();
         }
     }

@@ -36,7 +36,6 @@ namespace Wjire.Dapper.SqlServer.CAP
 
         public void Dispose()
         {
-            Transaction?.Dispose();
             Connection?.Dispose();
         }
 
