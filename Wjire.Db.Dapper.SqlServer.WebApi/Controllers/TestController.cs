@@ -36,7 +36,7 @@ namespace Wjire.Db.Dapper.SqlServer.WebApi.Controllers
         [HttpGet]
         public string Update()
         {
-            _logic.Update(new Company
+            _logic.AddOrUpdate(new Company
             {
                 CompanyName = "name111",
                 Id = 60
