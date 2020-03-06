@@ -27,7 +27,6 @@ namespace Wjire.Db.Dapper.SqlServer.WebApi
             services.AddSingleton<CompanyLogic>();
             services.AddDapper(x =>
             {
-                //x.UseCapDbContext();
                 x.UseSqlServer(configure =>
                 {
                     configure.Read = _configuration.GetSection("connectionStrings")["Read"];

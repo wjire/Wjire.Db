@@ -6,13 +6,4 @@ namespace Wjire.Dapper
     {
         void AddServices(IServiceCollection services);
     }
-
-
-    public class DbContextDbOptionsExtension : IDbOptionsExtension
-    {
-        public void AddServices(IServiceCollection services)
-        {
-            services.AddSingleton<DbContext>();
-        }
-    }
 }

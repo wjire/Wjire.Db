@@ -14,8 +14,14 @@ namespace Wjire.Dapper
             Write = connection.Write;
         }
 
-        public IUnitOfWork Transaction => new TransactionConnection(Write);
+        public IUnitOfWork CreateTransaction()
+        {
+            return new TransactionConnection(Write);
+        }
 
-        public IUnitOfWork Single => new SingleConnection(Read);
+        public IUnitOfWork CreateSingleConnection()
+        {
+            return new SingleConnection(Read);
+        }
     }
 }

@@ -9,10 +9,10 @@ namespace Wjire.Db.Dapper.SqlServer.WebApi
     public class CompanyLogic
     {
         private readonly ICapPublisher _cap;
-        private readonly CapDbContext _dbContext;
+        private readonly DbContext _dbContext;
         private readonly ILogger<CompanyLogic> _logger;
 
-        public CompanyLogic(ICapPublisher cap, CapDbContext dbContext, ILogger<CompanyLogic> logger)
+        public CompanyLogic(ICapPublisher cap, DbContext dbContext, ILogger<CompanyLogic> logger)
         {
             _cap = cap;
             _dbContext = dbContext;

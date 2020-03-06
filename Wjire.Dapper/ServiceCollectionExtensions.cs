@@ -9,6 +9,7 @@ namespace Wjire.Dapper
 
         public static IServiceCollection AddDapper(this IServiceCollection services, Action<DbOptions> dbOptionsAction)
         {
+            services.AddSingleton<DbContext>();
             DbOptions options = new DbOptions();
             dbOptionsAction(options);
             foreach (IDbOptionsExtension serviceExtension in options.Extensions)
