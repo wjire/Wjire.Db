@@ -26,11 +26,32 @@ namespace Wjire.Db.Dapper.SqlServer.WebApi.Controllers
         }
 
 
-
         [HttpGet]
         public IActionResult Get()
         {
             return Ok(_logic.Get());
+        }
+
+
+        [HttpGet]
+        public string Update()
+        {
+            _logic.Update(new Company
+            {
+                CompanyName = "name111",
+                Id = 60
+            });
+            return "1";
+        }
+
+
+        [HttpGet]
+        public long AddAndReturnIdentity()
+        {
+            return _logic.AddAndReturnIdentity(new Company
+            {
+                CompanyName = "name111",
+            });
         }
     }
 }

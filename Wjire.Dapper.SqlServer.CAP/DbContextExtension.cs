@@ -1,5 +1,4 @@
 ﻿using DotNetCore.CAP;
-using Microsoft.Extensions.Options;
 
 namespace Wjire.Dapper.SqlServer.CAP
 {

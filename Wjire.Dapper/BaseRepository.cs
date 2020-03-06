@@ -16,12 +16,12 @@ namespace Wjire.Dapper
         private readonly string _connectionString;
         private readonly IUnitOfWork _unit;
         private IDbConnection _connection;
-        private IDbConnection Connection =>
+        protected IDbConnection Connection =>
             _unit == null
                 ? (_connection ?? (_connection = ConnectionFactoryProvider.ConnectionFactory(_connectionString)))
                 : (_unit.Connection ?? (_unit.Connection = ConnectionFactoryProvider.ConnectionFactory(_unit.ConnectionString)));
 
-        private IDbTransaction Transaction =>
+        protected IDbTransaction Transaction =>
             (_unit?.TransactionFactory == null)
             ? null
             : (_unit.Transaction = _unit.Transaction ?? _unit.TransactionFactory(Connection));
@@ -139,7 +139,6 @@ namespace Wjire.Dapper
             return Connection.QueryFirstOrDefaultAsync<T>(sql, param, Transaction, commandTimeout, commandType);
         }
 
-
         protected TEntity QuerySingle(string sql, object param = null, int? commandTimeout = null, CommandType? commandType = null)
         {
             return Connection.QuerySingle<TEntity>(sql, param, Transaction, commandTimeout, commandType);
@@ -159,7 +158,6 @@ namespace Wjire.Dapper
         {
             return Connection.QuerySingleAsync<T>(sql, param, Transaction, commandTimeout, commandType);
         }
-
 
         protected TEntity QuerySingleOrDefault(string sql, object param = null, int? commandTimeout = null, CommandType? commandType = null)
         {
@@ -190,6 +188,7 @@ namespace Wjire.Dapper
         {
             return Connection.QueryMultipleAsync(sql, param, Transaction, commandTimeout, commandType);
         }
+
 
         public void Dispose()
         {

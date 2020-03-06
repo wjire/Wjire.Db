@@ -1,8 +1,7 @@
-﻿using System;
+﻿using System.Collections.Generic;
 using DotNetCore.CAP;
 using Microsoft.Extensions.Logging;
 using Wjire.Dapper;
-using Wjire.Dapper.SqlServer.CAP;
 
 namespace Wjire.Db.Dapper.SqlServer.WebApi
 {
@@ -21,29 +20,41 @@ namespace Wjire.Db.Dapper.SqlServer.WebApi
 
         public void Add(Company company)
         {
-            using (IUnitOfWork unit = _dbContext.CreateCapTransaction(_cap))
+            using (CompanyRepository db = new CompanyRepository(_dbContext.Write))
             {
-                try
-                {
-                    CompanyRepository db = new CompanyRepository(unit);
-                    db.Add(company);
-                    _cap.Publish("test.company.add", DateTime.Now);
-                    unit.Commit();
-                }
-                catch (Exception ex)
-                {
-                    unit.Rollback();
-                    _logger.LogError(ex.ToString());
-                }
+                db.Add(company);
             }
         }
 
+        public long AddAndReturnIdentity(Company company)
+        {
+            using (CompanyRepository db = new CompanyRepository(_dbContext.Write))
+            {
+                return db.AddAndReturnIdentity(company);
+            }
+        }
 
-        public string Get()
+        public void AddOrUpdate(Company company)
+        {
+            using (CompanyRepository db = new CompanyRepository(_dbContext.Write))
+            {
+                db.AddOrUpdate(company);
+            }
+        }
+
+        public IEnumerable<Company> QueryPage(int pageIndex, int pageSize)
         {
             using (CompanyRepository db = new CompanyRepository(_dbContext.Read))
             {
-                return db.Get(1);
+                return db.QueryPage(pageIndex, pageSize, out int pageCount, out int dataCount);
+            }
+        }
+
+        public IEnumerable<Company> Get()
+        {
+            using (CompanyRepository db = new CompanyRepository(_dbContext.Read))
+            {
+                return db.Page();
             }
         }
     }
