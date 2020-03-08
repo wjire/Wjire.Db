@@ -11,20 +11,18 @@ namespace Wjire.Dapper
     /// </summary>
     public abstract class BaseRepository<TEntity> : IDisposable where TEntity : class, new()
     {
-        protected readonly string TableName = typeof(TEntity).Name;
-        private static readonly IConnectionFactoryProvider ConnectionFactoryProvider = ServiceCollectionExtensions.GetRequiredService<IConnectionFactoryProvider>();
         private readonly string _connectionString;
         private readonly IUnitOfWork _unit;
         private IDbConnection _connection;
         protected IDbConnection Connection =>
             _unit == null
-                ? (_connection ?? (_connection = ConnectionFactoryProvider.ConnectionFactory(_connectionString)))
-                : (_unit.Connection ?? (_unit.Connection = ConnectionFactoryProvider.ConnectionFactory(_unit.ConnectionString)));
+                ? _connection ?? (_connection = ConnectionHelper.ConnectionFactory(_connectionString))
+                : _unit.Connection ?? (_unit.Connection = ConnectionHelper.ConnectionFactory(_unit.ConnectionString));
 
         protected IDbTransaction Transaction =>
-            (_unit?.TransactionFactory == null)
+            _unit?.TransactionFactory == null
             ? null
-            : (_unit.Transaction = _unit.Transaction ?? _unit.TransactionFactory(Connection));
+            : _unit.Transaction ?? (_unit.Transaction = _unit.TransactionFactory(Connection));
 
 
         protected BaseRepository(string connectionString)
