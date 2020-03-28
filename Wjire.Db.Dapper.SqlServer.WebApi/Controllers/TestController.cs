@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
 
 namespace Wjire.Db.Dapper.SqlServer.WebApi.Controllers
 {
@@ -7,10 +9,14 @@ namespace Wjire.Db.Dapper.SqlServer.WebApi.Controllers
     public class TestController : ControllerBase
     {
         private readonly CompanyLogic _logic;
+        private readonly IWebHostEnvironment _env;
+        private readonly IConfiguration _configuration;
 
-        public TestController(CompanyLogic logic)
+        public TestController(CompanyLogic logic, IWebHostEnvironment env,IConfiguration configuration)
         {
             _logic = logic;
+            _env = env;
+            _configuration = configuration;
         }
 
 
@@ -22,7 +28,7 @@ namespace Wjire.Db.Dapper.SqlServer.WebApi.Controllers
                 CompanyName = "test",
             };
             _logic.Add(company);
-            return Ok("success");
+            return Ok(_configuration["configName"]);
         }
 
 

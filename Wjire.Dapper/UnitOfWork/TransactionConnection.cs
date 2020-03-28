@@ -22,12 +22,12 @@ namespace Wjire.Dapper
 
         public void Commit()
         {
-            Transaction.Commit();
+            Transaction?.Commit();
         }
 
         public void Rollback()
         {
-            Transaction.Rollback();
+            Transaction?.Rollback();
         }
 
         public void Dispose()
