@@ -80,6 +80,28 @@ namespace Wjire.Dapper.SqlServer
 
 
         /// <summary>
+        /// 如果不存在则插入,否则忽略
+        /// </summary>
+        /// <param name="connection"></param>
+        /// <param name="entity"></param>
+        /// <param name="whereField">判断是否存在的匹配字段</param>
+        /// <param name="transaction"></param>
+        public static void AddIfNotExists(this IDbConnection connection, object entity, object whereField, IDbTransaction transaction)
+        {
+            Type type = entity.GetType();
+            string tableName = type.Name;
+            string addSql = SqlHelper.GetInsertSql(type, tableName);
+            string whereSql = SqlHelper.GetWhereSql(whereField);
+            string sql = $" IF NOT EXISTS (SELECT TOP 1 1 FROM {tableName} {whereSql}) {addSql};";
+            int result = connection.Execute(sql, entity, transaction);
+            if (result != 1)
+            {
+                throw new Exception("AddIfNotExists throw an exception");
+            }
+        }
+
+
+        /// <summary>
         /// 分页查询
         /// </summary>
         /// <param name="connection"></param>
