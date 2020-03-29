@@ -93,11 +93,7 @@ namespace Wjire.Dapper.SqlServer
             string addSql = SqlHelper.GetInsertSql(type, tableName);
             string whereSql = SqlHelper.GetWhereSql(whereField);
             string sql = $" IF NOT EXISTS (SELECT TOP 1 1 FROM {tableName} {whereSql}) {addSql};";
-            int result = connection.Execute(sql, entity, transaction);
-            if (result != 1)
-            {
-                throw new Exception("AddIfNotExists throw an exception");
-            }
+            connection.Execute(sql, entity, transaction);
         }
 
 
