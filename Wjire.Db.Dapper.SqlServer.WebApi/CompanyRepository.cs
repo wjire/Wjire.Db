@@ -16,18 +16,17 @@ namespace Wjire.Db.Dapper.SqlServer.WebApi
 
         public void Add(Company company)
         {
-            Connection.Add(company, Transaction);
+            Insert(company);
         }
 
         public long AddAndReturnIdentity(Company company)
         {
-            return Connection.AddAndReturnIdentity(company, Transaction);
+            return InsertAndReturnIdentity(company);
         }
 
         public void AddOrUpdate(Company company)
         {
-            //TODO
-            Connection.AddOrUpdate(company, new { company.Id }, Transaction);
+            InsertOrUpdate(company, new { company.Id }, new { company.CompanyName });
         }
 
         public IEnumerable<Company> QueryPage(int pageIndex, int pageSize, out int pageCount, out int dataCount)
@@ -35,7 +34,7 @@ namespace Wjire.Db.Dapper.SqlServer.WebApi
             //TODO
             string dataSql = "select * from Company order by id";
             string countSql = "select count(0) from Company";
-            return Connection.QueryPage<Company>(dataSql, countSql, pageIndex, pageSize, out pageCount, out dataCount, Transaction);
+            return Page(dataSql, countSql, pageIndex, pageSize, out pageCount, out dataCount, Transaction);
         }
 
 
@@ -48,7 +47,7 @@ namespace Wjire.Db.Dapper.SqlServer.WebApi
         {
             string dataSql = "select * from Company order by id";
             string countSql = "select count(0) from Company";
-            return Connection.QueryPage<Company>(dataSql, countSql, 2, 10, out int pageCount, out int dataCount, Transaction);
+            return Page(dataSql, countSql, 2, 10, out int pageCount, out int dataCount, Transaction);
         }
     }
 }
